@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    stages {
+        stage('Stop ancien conteneur') {
+            steps {
+                sh 'docker stop monsite || true'
+                sh 'docker rm monsite || true'
+            }
+        }
+        stage('Lancer conteneur') {
+            steps {
+                sh 'docker run -d --name monsite --hostname monsite -p 80:80 mon-image:latest'
+                sh 'docker ps'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'curl http://localhost:80'
+            }
+        }
+    }
+}
