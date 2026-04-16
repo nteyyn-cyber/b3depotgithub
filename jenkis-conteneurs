@@ -15,7 +15,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'curl http://localhost:80'
+                sh 'sleep 3'
+                sh 'curl http://localhost:80 | head -5'
             }
         }
     }
