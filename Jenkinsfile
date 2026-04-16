@@ -6,22 +6,15 @@ pipeline {
                 cleanWs()
             }
         }
-        stage('Checkout') {
+        stage('Clone Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/nteyyn-cyber/b3depotgithub.git'
+                git branch: 'main', url: 'https://github.com/TON_USERNAME/b3depogithub.git'
             }
         }
-        stage('Build image Docker') {
+        stage('Vérification') {
             steps {
-                sh 'docker build -t mon-apache2 .'
-            }
-        }
-        stage('Déployer conteneur') {
-            steps {
-                sh 'docker stop monsite || true'
-                sh 'docker rm monsite || true'
-                sh 'docker run -d --name monsite --hostname monsite -p 80:80 mon-apache2'
-                sh 'docker ps'
+                sh 'ls -la'
+                sh 'echo Build terminé !'
             }
         }
     }
