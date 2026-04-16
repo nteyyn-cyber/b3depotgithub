@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Vérification Docker') {
             steps {
-                sh 'sudo chmod 666 /var/run/docker.sock'
+                sh 'chmod 666 /var/run/docker.sock'
                 sh 'docker --version'
                 sh 'docker ps'
             }
