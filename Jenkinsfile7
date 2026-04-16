@@ -16,15 +16,15 @@ pipeline {
                 sh 'docker start contapache01'
             }
         }
-        stage('Copy-fichiers-mysite-dans-contapache01') {
+        stage('Copy-fichiers-monsite-dans-contapache01') {
             steps {
                 sh '''
-                    if [ -d "mysite" ]; then
-                        cp -r mysite/* ./volumecontapache01
+                    if [ -d "monsite" ]; then
+                        cp -r monsite/* ./volumecontapache01
                         echo "Fichiers copiés avec succès"
                         ls ./volumecontapache01
                     else
-                        echo "ERREUR : le dossier mysite est absent du repo !"
+                        echo "ERREUR : le dossier monsite est absent du repo !"
                         ls -la
                         exit 1
                     fi
