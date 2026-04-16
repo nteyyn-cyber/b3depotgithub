@@ -6,7 +6,7 @@ pipeline {
                 cleanWs()
             }
         }
-        stage('Clone GitHub') {
+        stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/nteyyn-cyber/b3depotgithub.git'
             }
