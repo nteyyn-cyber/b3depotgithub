@@ -9,6 +9,7 @@ pipeline {
         }
         stage('Create-conteneur') {
             steps {
+                sh 'docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 macvlan192 || true'
                 sh 'docker stop contapache01 || true'
                 sh 'docker rm contapache01 || true'
                 sh 'docker run -d --name contapache01 --hostname contapache01 -v ./volumecontapache01:/var/www/html --network macvlan192 --ip 192.168.1.20 mon-apache2'
@@ -17,8 +18,17 @@ pipeline {
         }
         stage('Copy-fichiers-mysite-dans-contapache01') {
             steps {
-                sh 'cp -r mysite/* ./volumecontapache01'
-                sh 'ls /var/www/html'
+                sh '''
+                    if [ -d "mysite" ]; then
+                        cp -r mysite/* ./volumecontapache01
+                        echo "Fichiers copiés avec succès"
+                        ls ./volumecontapache01
+                    else
+                        echo "ERREUR : le dossier mysite est absent du repo !"
+                        ls -la
+                        exit 1
+                    fi
+                '''
             }
         }
     }
