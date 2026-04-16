@@ -1,5 +1,5 @@
-FROM ubuntu:22.04
-
+FROM nginx:latest
+COPY monsite/ /usr/share/nginx/html/
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
