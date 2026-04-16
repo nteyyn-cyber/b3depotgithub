@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/nteyyn-cyber/b3depotgithub.git'
+            }
+        }
+        stage('Build image') {
+            steps {
+                sh 'docker build -t mon-image:latest .'
+                sh 'docker images'
+            }
+        }
+    }
+}
