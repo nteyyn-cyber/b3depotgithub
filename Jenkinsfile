@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Clone Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/TON_USERNAME/b3depogithub.git'
+                git branch: 'main', url: 'https://github.com/nteyyn-cyber/b3depotgithub.git'
             }
         }
         stage('Vérification') {
