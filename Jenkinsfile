@@ -11,20 +11,18 @@ pipeline {
                 sh "git clone https://github.com/nteyyn-cyber/b3depotgithub.git"
             }
         }
-        stage('Install Docker') {
+        stage('Vérification Docker') {
             steps {
-                sh 'sudo apt update -y'
-                sh 'sudo apt install -y docker.io'
-                sh 'sudo systemctl start docker.service'
                 sh 'sudo chmod 666 /var/run/docker.sock'
                 sh 'docker --version'
+                sh 'docker ps'
             }
         }
-        stage('Lancer conteneur') {
+        stage('Lancer conteneur nginx') {
             steps {
-                sh 'sudo docker stop monsite || true'
-                sh 'sudo docker rm monsite || true'
-                sh 'sudo docker run -d --name monsite --hostname monsite nginx:latest'
+                sh 'docker stop monsite || true'
+                sh 'docker rm monsite || true'
+                sh 'docker run -d --name monsite --hostname monsite nginx:latest'
                 sh 'docker ps'
             }
         }
